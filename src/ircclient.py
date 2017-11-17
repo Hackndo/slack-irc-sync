@@ -4,6 +4,7 @@
 import irc.bot
 import threading
 import time
+import ssl
 
 from .formatting import I2DFormatter
 
@@ -14,6 +15,7 @@ class IRCClient(irc.bot.SingleServerIRCBot):
     def __init__(self, configuration):
         self.h_server = configuration['irc']["server"]
         self.h_port = int(configuration['irc']["port"])
+        self.h_ssl = configuration['irc']['ssl']
         self.h_nickname = configuration['irc']["nickname"]
         self.h_channel = configuration['irc']["channel"]
         self.h_owner = configuration['irc']["owner"]
@@ -21,8 +23,11 @@ class IRCClient(irc.bot.SingleServerIRCBot):
         self.h_formatter = I2DFormatter(configuration)
         self.h_slack = None
         self.h_connection = None
-
-        super().__init__([(self.h_server, self.h_port)], self.h_nickname, self.h_nickname)
+        if self.h_ssl:
+            ssl_factory = irc.connection.Factory(wrapper=ssl.wrap_socket)
+            super().__init__([(self.h_server, self.h_port)], self.h_nickname, self.h_nickname, connect_factory=ssl_factory)
+        else:
+            super().__init__([(self.h_server, self.h_port)], self.h_nickname, self.h_nickname)
 
     def set_slack(self, slack):
         self.h_slack = slack
