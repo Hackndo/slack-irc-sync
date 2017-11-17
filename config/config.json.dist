@@ -1,0 +1,25 @@
+{
+    "irc": {
+        "server": "irc.server.com",
+        "port": "6667",
+        "channel": "#channel",
+        "nickname": "h_bot",
+        "owner": "username",
+        "log_events": true
+    },
+    "slack": {
+        "channel": "<channel name without #>",
+        "bot_id": "<bot ID>",
+        "bot_name": "irc-sync",
+        "token": "<bot token>",
+        "owner": "username",
+        "cmd_prefix": "!",
+        "output_msg": "<:username:> :message:",
+        "output_cmd": "CMD by :username:",
+        "log_events": true
+    },
+    "formatting": {
+        "irc_to_slack": false,
+        "slack_to_irc": true
+    },
+}
