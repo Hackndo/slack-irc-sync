@@ -22,5 +22,5 @@
     "formatting": {
         "irc_to_slack": false,
         "slack_to_irc": true
-    },
+    }
 }
